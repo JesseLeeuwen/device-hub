@@ -1,0 +1,65 @@
+@import url('bespoke-serif.css');
+
+h1 { font-family: 'BespokeSerif-Variable'; }
+
+body{
+    height: 100vh;
+}
+
+header{
+    padding: 14px;
+}
+
+.hero{
+    background-color: #f7f8f9;
+    background-image: linear-gradient(to right, rgba(247,248,249, 0.7) 0 100%), url( '/static/img/globe-2-svgrepo-com.svg' );
+    background-position-x: calc(100% + 120px);
+    background-size: 500px;
+    opacity: 0.8;
+    background-repeat: no-repeat;
+}
+
+.hero-body{
+    padding-left: 2rem!important;
+}
+
+.empty{
+    position: relative;
+    bottom: 0;
+}
+
+.input-inline{
+margin-left: 14px;
+}
+
+.container{
+    max-width: 90%;
+}
+
+.loading{
+    display: none;
+}
+
+.loading:only-child{
+    display: block;
+}
+
+.divider:last-child{
+    display: none;
+}
+
+.menu {
+    translate: -80%;
+}
+
+.icon-plus{
+    vertical-align: -7%!important;
+    margin-right: 5px;
+    margin-left: 3px;
+}
+
+.gg-screen{
+    scale: 1.5;
+    left: 21px;
+    top: 25px;
+}
