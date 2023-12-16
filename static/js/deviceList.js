@@ -44,6 +44,7 @@ setTimeout(() => {
     fetchDevices("")
 }, 50);
 
+
 setInterval(() => {
     if( document.hasFocus() )
         fetchDevices( window.api.fetchFilter )
@@ -58,7 +59,7 @@ async function fetchDevices( filter )
         window.api.fetchFilter = filter
 
     const query = window.api.fetchFilter
-    const response = await fetch( "/devices/list?filter="+query )
+    const response = await fetch( "/devices?filter="+query )
     const json = await response.json()
     data.devices = json
 }  

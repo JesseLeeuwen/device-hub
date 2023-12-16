@@ -21,5 +21,4 @@
 <div class="container" id="device-list"> 
     <div class="loading loading-lg"></div>
 </div>    
-
 <script type="module" src="/static/js/deviceList.js"></script>

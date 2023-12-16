@@ -23,7 +23,7 @@ def index():
 
     return template('index', devices = devices )
 
-@app.get('/devices/list')
+@app.get('/devices')
 def listDevices():
     query : str = request.query.filter.upper() or ""
 
