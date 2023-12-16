@@ -88,3 +88,7 @@ def serveThreaded():
 def serve():
     global app
     run(app, host='0.0.0.0', port=config.get("PORT"), debug=config.get("Debug"), server=GeventWebSocketServer)
+
+
+if __name__ == "__main__":
+    serve()
