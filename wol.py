@@ -24,6 +24,7 @@ def wol(deviceName):
             timers.update({ device.name: Timer( 40, timerfunc ) })
             return
         
-        timers.pop( device.name )
+        if timers.get( device.name ) is not None:
+            timers.pop( device.name )
 
     timerfunc()
