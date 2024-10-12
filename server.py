@@ -9,6 +9,7 @@ from bottle.ext.websocket import websocket
 from data import Device
 import data
 from config import config
+import logging
 
 app = Bottle()
 
@@ -61,7 +62,7 @@ def newDevice():
 def connect(ws):
     mac = ws.receive()
     device : Device = Device.get( Device.mac == mac )
-    print(f"new connection {device.name}")
+    logging.info(f"new connection {device.name}")
 
     if device is None:
         return # refuse connection
@@ -75,7 +76,7 @@ def connect(ws):
         if msg is None:
             break
 
-    print(f"closed connection {device.name}")
+    logging.info(f"closed connection {device.name}")
 
     device.lastOnline = datetime.now()
     device.state = False
