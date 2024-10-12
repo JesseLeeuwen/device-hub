@@ -10,6 +10,8 @@ from data import Device
 import data
 from config import config
 import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 app = Bottle()
 
