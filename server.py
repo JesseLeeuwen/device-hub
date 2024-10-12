@@ -7,6 +7,7 @@ from bottle.ext.websocket import GeventWebSocketServer
 from bottle.ext.websocket import websocket
 
 from data import Device
+import data
 from config import config
 
 app = Bottle()
@@ -91,4 +92,6 @@ def serve():
 
 
 if __name__ == "__main__":
+    data.connect()
     serve()
+    data.close()
