@@ -19,7 +19,7 @@ def wol(deviceName):
             return # no use
 
         if device.state == False:
-            send_magic_packet( device.mac )
+            send_magic_packet( device.mac, ip_address=config.get('Broadcast') )
             attempts = attempts + 1
             timers.update({ device.name: Timer( 40, timerfunc ) })
             return
