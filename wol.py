@@ -3,12 +3,18 @@ from wakeonlan import send_magic_packet
 from data import Device
 from config import config
 
+import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+
+
 timers = {}
 
 def wol(deviceName):
     global attempts
     device : Device = Device.get(Device.name == deviceName)
     attempts = 0
+
     # job already running
     if timers.get( device.name ) is not None:
         return
@@ -20,10 +26,13 @@ def wol(deviceName):
 
         if device.state == False:
             send_magic_packet( device.mac, ip_address=config.get('Broadcast') )
+            logging.info(f"sending magic packet to {device.mac}")
+            
             attempts = attempts + 1
             timers.update({ device.name: Timer( 40, timerfunc ) })
             return
         
-        timers.pop( device.name )
+        if timers.get( device.name ) is not None:
+            timers.pop( device.name )
 
     timerfunc()
