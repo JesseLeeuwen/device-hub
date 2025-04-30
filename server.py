@@ -14,6 +14,7 @@ import sys
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 app = Bottle()
+sockets = {}
 
 @app.route('/static/<filepath:path>')
 def server_static(filepath):
@@ -42,6 +43,14 @@ def listDevices():
     response.content_type = "application/json"
     return json.dumps( devices )
 
+@app.post('/devices/<device>/shutdown')
+def shutdownDevice(device):
+    if device in sockets:
+        sockets[device].send('{"type":"shutdown"}')
+        return 'OK'
+    
+    response.status_code = 404
+    
 @app.post('/devices/<device>/startup')
 def startDevice(device):
     from wol import wol
@@ -57,7 +66,8 @@ def removeDevice(device):
 def newDevice():
     name = request.forms.get('device-name')
     mac = request.forms.get('device-mac')
-    Device.create( name = name, mac = mac, state = False, lastOnline = datetime(1970,1,1) )
+    device = Device.create( name = name, mac = mac, state = False, lastOnline = datetime(1970,1,1) )
+    device.save()
     return "OK"
 
 @app.get('/websocket', apply=[websocket])
@@ -68,6 +78,8 @@ def connect(ws):
 
     if device is None:
         return # refuse connection
+
+    sockets[device.name] = ws
 
     device.lastOnline = datetime.now()
     device.state = True

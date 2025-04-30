@@ -34,6 +34,7 @@ async function newDevice()
 
 async function removeDevice(name, mac)
 {
+    document.activeElement.blur()
     if( !confirm( `do you want to remove ${name}?`, "yes", "no" ) )
         return
 
@@ -44,5 +45,14 @@ async function removeDevice(name, mac)
 async function wolSignal(name, mac)
 {
     console.log("hoi")
+    document.activeElement.blur()
     await fetch(`/devices/${name}/startup`, {method: "POST"})
+}
+
+async function shutdownSignal(name)
+{
+    console.log("doei")
+    document.activeElement.blur()
+    
+    await fetch(`/devices/${name}/shutdown`, {method: "POST"})
 }

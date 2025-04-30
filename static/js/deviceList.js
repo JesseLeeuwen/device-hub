@@ -16,13 +16,16 @@ const template = html`${() => data.devices.map( device => html`
         <div class="tile-title"> ${device.name} </div>
         <small class="tile-subtitle text-gray">${device.mac} · last online · ${device.state? "now" : device.lastOnline}</small>
     </div>
-    <div class="tile-action dropdown ">
+    <div class="tile-action dropdown" id="${device.name}-dropdown">
         <button class="btn btn-link dropdown-toggle" tabindex="0" > 
             <i class="icon icon-more-vert"></i>
         </button>
         <ul class="menu">
             <li class="menu-item">
                 <a href="#" onclick="wolSignal('${device.name}', '${device.mac}')">send WOL signal</a>
+            </li>  
+            <li class="menu-item">
+                <a href="#" onclick="shutdownSignal('${device.name}')">shutdown signal</a>
             </li>  
             <li class="menu-item">
                 <a href="#" onclick="removeDevice('${device.name}', '${device.mac}')" >Remove</a>

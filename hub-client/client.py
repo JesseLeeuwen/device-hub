@@ -1,6 +1,8 @@
 import asyncio
 import sys
 import websockets
+import json
+import os
 
 async def main():
     mac_address = "7C-21-4A-78-D3-18"
@@ -16,6 +18,11 @@ async def main():
                 while True:
                     msg = await connection.recv()
                     print( msg )
+
+                    data = json.loads( msg )
+                    if data['type'] == 'shutdown':
+                        os.system('shutdown -s')
+                    
         except ConnectionRefusedError:
             print( "cannot connect" )
             await asyncio.sleep( 5 )
